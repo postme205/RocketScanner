@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Subscribe – RocketScanner</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f4f3f0;
+      --card: #ffffff;
+      --text: #111111;
+      --muted: #666666;
+      --accent: #1a56db;
+      --border: #e2e0db;
+      --gold: #f5b800;
+      --radius: 14px;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+      background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(26,86,219,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(245,184,0,0.07) 0%, transparent 50%);
+    }
+
+    .checkout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      max-width: 900px;
+      width: 100%;
+      background: var(--card);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 48px rgba(0,0,0,0.10), 0 1px 3px rgba(0,0,0,0.06);
+      animation: fadeUp 0.5s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ---- LEFT PANEL ---- */
+    .left {
+      padding: 44px 40px;
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #fff7e0;
+      border: 1px solid #fdd96a;
+      color: #8a6200;
+      font-family: 'Sora', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 100px;
+      width: fit-content;
+    }
+
+    .badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+    }
+
+    .product-title {
+      font-family: 'Sora', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.01em;
+    }
+
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .price-amount {
+      font-family: 'Sora', sans-serif;
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.03em;
+    }
+
+    .price-cents {
+      font-family: 'Sora', sans-serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--text);
+      align-self: flex-start;
+      margin-top: 8px;
+    }
+
+    .price-period {
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .description {
+      font-size: 13.5px;
+      color: #555;
+      line-height: 1.65;
+      border-left: 3px solid var(--gold);
+      padding-left: 12px;
+    }
+
+    /* Feature card */
+    .feature-card {
+      background: #f9f8f6;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .feature-header {
+      background: linear-gradient(135deg, #0f1923 0%, #1a2d42 100%);
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .feature-header-icon {
+      font-size: 20px;
+    }
+
+    .feature-header-text {
+      font-family: 'Sora', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: 0.02em;
+    }
+
+    .feature-header-sub {
+      font-size: 11px;
+      color: rgba(255,255,255,0.55);
+      margin-top: 1px;
+    }
+
+    .features-list {
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .feature-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+    }
+
+    .feature-label {
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .feature-label::before {
+      content: '';
+      width: 5px; height: 5px;
+      background: var(--gold);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .feature-value {
+      font-weight: 600;
+      color: var(--text);
+      font-family: 'Sora', sans-serif;
+      font-size: 12.5px;
+    }
+
+    .stars {
+      color: var(--gold);
+      font-size: 13px;
+      letter-spacing: 2px;
+    }
+
+    /* ---- RIGHT PANEL ---- */
+    .right {
+      padding: 44px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .section-label {
+      font-family: 'Sora', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .paypal-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    #paypal-button-container-P-92468393G56295924NHY734Y {
+      min-height: 50px;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .benefits {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .benefit {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 13.5px;
+      color: #444;
+      line-height: 1.5;
+    }
+
+    .benefit-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: #f0f4ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .benefit strong {
+      display: block;
+      font-weight: 600;
+      color: var(--text);
+      font-size: 13px;
+      margin-bottom: 1px;
+    }
+
+    .guarantee {
+      background: #f9f8f6;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .guarantee-icon {
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .guarantee strong {
+      font-size: 13px;
+      color: var(--text);
+      font-weight: 600;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .footer-note {
+      font-size: 11.5px;
+      color: #aaa;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .footer-note a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 680px) {
+      .checkout {
+        grid-template-columns: 1fr;
+        border-radius: 16px;
+      }
+      .left {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding: 32px 24px;
+      }
+      .right {
+        padding: 32px 24px;
+      }
+      .price-amount { font-size: 36px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="checkout">
+
+  <!-- LEFT: Product Info -->
+  <div class="left">
+    <div class="badge">Live Subscription</div>
+
+    <div>
+      <div class="product-title">Subscribe to RocketScanner</div>
+      <div class="price-row">
+        <span class="price-cents">$</span>
+        <span class="price-amount">20</span>
+        <span class="price-period">.00 / month</span>
+      </div>
+    </div>
+
+    <p class="description">
+      BETA Real-Time Stock Scanner (Pre-Market) Alert — Low Float, Gap Up 50%+, News Alerts &amp; more. Read disclaimer before usage.
+    </p>
+
+    <div class="feature-card">
+      <div class="feature-header">
+        <span class="feature-header-icon">📡</span>
+        <div>
+          <div class="feature-header-text">Real-Time Alerts</div>
+          <div class="feature-header-sub">Pre-market · Live · News</div>
+        </div>
+      </div>
+      <div class="features-list">
+        <div class="feature-item">
+          <span class="feature-label">Gap Up</span>
+          <span class="feature-value">≥ 50%</span>
+        </div>
+        <div class="feature-item">
+          <span class="feature-label">Low Float</span>
+          <span class="feature-value">≤ 5M</span>
+        </div>
+        <div class="feature-item">
+          <span class="feature-label">Volume</span>
+          <span class="feature-value">≥ 1M</span>
+        </div>
+        <div class="feature-item">
+          <span class="feature-label">Starting</span>
+          <span class="feature-value">04:00 AM</span>
+        </div>
+        <div class="feature-item">
+          <span class="feature-label">News Feed</span>
+          <span class="feature-value">Included ✓</span>
+        </div>
+        <div class="feature-item">
+          <span class="feature-label">Rating</span>
+          <span class="feature-value stars">★★★★★</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: Payment -->
+  <div class="right">
+
+    <div class="paypal-wrapper">
+      <div class="section-label">Complete your subscription</div>
+      <div id="paypal-button-container-P-92468393G56295924NHY734Y"></div>
+    </div>
+
+    <div class="divider">Secure checkout</div>
+
+    <div class="benefits">
+      <div class="benefit">
+        <div class="benefit-icon">⚡</div>
+        <div>
+          <strong>Instant access</strong>
+          Alerts start immediately after payment confirmation.
+        </div>
+      </div>
+      <div class="benefit">
+        <div class="benefit-icon">🔄</div>
+        <div>
+          <strong>Cancel anytime</strong>
+          No lock-in. Manage or cancel your subscription at any time via PayPal.
+        </div>
+      </div>
+      <div class="benefit">
+        <div class="benefit-icon">🔒</div>
+        <div>
+          <strong>Secure payment</strong>
+          Processed safely through PayPal. Your card details are never stored.
+        </div>
+      </div>
+    </div>
+
+    <div class="guarantee">
+      <span class="guarantee-icon">🛡️</span>
+      <div>
+        <strong>Buyer Protection</strong>
+        Payments are covered by PayPal's buyer protection policy. You are in full control of your subscription.
+      </div>
+    </div>
+
+    <p class="footer-note">
+      By subscribing, you authorize recurring monthly charges of $20.00 until cancelled.<br>
+      <a href="#">Terms</a> · <a href="#">Privacy</a> · Powered by PayPal
+    </p>
+
+  </div>
+</div>
+
+<!-- PayPal SDK -->
+<script src="https://www.paypal.com/sdk/js?client-id=AXfRs4sMS7FIrBEX8CYHW2ETK0edouwRc1zYR4B4GsfTf-5R3hsd2Nz1eqMeFXD3aL8WOD6i2-d_yIkk&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+<script>
+  paypal.Buttons({
+    style: {
+      shape: 'rect',
+      color: 'gold',
+      layout: 'vertical',
+      label: 'subscribe'
+    },
+    createSubscription: function(data, actions) {
+      return actions.subscription.create({
+        plan_id: 'P-92468393G56295924NHY734Y'
+      });
+    },
+    onApprove: function(data, actions) {
+      alert('🎉 Subscription confirmed! ID: ' + data.subscriptionID);
+    }
+  }).render('#paypal-button-container-P-92468393G56295924NHY734Y');
+</script>
+
+</body>
+</html>
