@@ -192,6 +192,34 @@
     color: #5a7aaa;
   }
 
+  .email-field {
+    margin-bottom: 1.2rem;
+  }
+  .email-field label {
+    display: block;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #5a7aaa;
+    margin-bottom: 8px;
+  }
+  .email-field input {
+    width: 100%;
+    background: #111e33;
+    border: 1.5px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 0.85rem 1.1rem;
+    font-size: 15px;
+    font-family: 'DM Sans', sans-serif;
+    color: #e8eaf0;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .email-field input::placeholder { color: #3a4f6a; }
+  .email-field input:focus { border-color: rgba(255,255,255,0.25); }
+  .email-field input.error { border-color: #c0392b; }
+  .error-msg { font-size: 12px; color: #f05a5a; margin-top: 6px; display: none; }
+
   .footer-note {
     font-size: 12px;
     color: #3a4f6a;
@@ -276,6 +304,12 @@
     <h1>Choose your alert delivery</h1>
     <p class="subtitle">Select how you'd like to receive your real-time stock scanner alerts. You can update this anytime.</p>
 
+    <div class="email-field">
+      <label for="customer-email">Your email address</label>
+      <input type="email" id="customer-email" placeholder="you@example.com" autocomplete="email"/>
+      <p class="error-msg" id="email-error">Please enter a valid email address.</p>
+    </div>
+
     <div class="options">
 
       <!-- Discord Button -->
@@ -321,40 +355,51 @@
       </svg>
     </div>
     <h2>You're all set! 🚀</h2>
-    <p>You've selected <span id="chosen-label"></span> as your alert delivery method.<br/><br/>The RocketScanner team has been notified and will get you set up shortly.<br/>Keep an eye out — your first alerts are coming soon!</p>
+    <p>You've selected <span id="chosen-label"></span> as your alert delivery method.<br/><br/>Confirmation will be sent to <strong id="customer-email-display" style="color:#7fccaa;"></strong>.<br/>The RocketScanner team will get you set up shortly. 🚀</p>
   </div>
 
 </div>
 
 <script>
 async function choose(platform) {
+  const emailInput = document.getElementById('customer-email');
+  const errorMsg = document.getElementById('email-error');
+  const emailVal = emailInput.value.trim();
+  const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal);
+
+  if (!valid) {
+    emailInput.classList.add('error');
+    errorMsg.style.display = 'block';
+    emailInput.focus();
+    return;
+  }
+  emailInput.classList.remove('error');
+  errorMsg.style.display = 'none';
+
   const mainView = document.getElementById('main-view');
   const successView = document.getElementById('success');
   document.getElementById('chosen-label').textContent = platform;
+  document.getElementById('customer-email-display').textContent = emailVal;
 
-  // Disable buttons to prevent double-submit
   document.querySelectorAll('.opt-btn').forEach(b => b.disabled = true);
 
-  // Send notification via FormSubmit (free, no-signup email forwarding)
   try {
     await fetch('https://formsubmit.co/ajax/postme.205@gmail.com', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({
-        _subject: '🚀 RocketScanner — Customer Delivery Preference: ' + platform,
+        _subject: '🚀 RocketScanner — Customer Selected: ' + platform,
         _template: 'box',
-        Message: 'A customer has selected their RocketScanner alert delivery preference.',
+        'Customer Email': emailVal,
         'Delivery Method': platform,
         'Submitted At': new Date().toLocaleString('en-GB', { dateStyle: 'long', timeStyle: 'short' }),
         _captcha: 'false'
       })
     });
   } catch(e) {
-    // Silent fail — still show success to user
     console.error('Notification error:', e);
   }
 
-  // Animate transition
   mainView.style.opacity = '0';
   mainView.style.transform = 'scale(0.97)';
   mainView.style.transition = 'opacity 0.3s, transform 0.3s';
