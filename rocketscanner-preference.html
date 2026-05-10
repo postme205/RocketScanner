@@ -9,8 +9,7 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   html, body {
-    min-height: 100%;
-    overflow-y: auto;
+    height: 100%;
   }
 
   body {
@@ -19,33 +18,28 @@
     color: #e8eaf0;
     min-height: 100vh;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
     padding: 2rem 1rem;
     position: relative;
+    overflow-y: auto;
   }
 
   body::before {
     content: '';
     position: fixed;
-    top: -30%;
-    left: -10%;
-    width: 60%;
-    height: 70%;
+    top: -30%; left: -10%;
+    width: 60%; height: 70%;
     background: radial-gradient(ellipse, rgba(10,30,80,0.7) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 0;
+    pointer-events: none; z-index: 0;
   }
   body::after {
     content: '';
     position: fixed;
-    bottom: -20%;
-    right: -10%;
-    width: 50%;
-    height: 60%;
+    bottom: -20%; right: -10%;
+    width: 50%; height: 60%;
     background: radial-gradient(ellipse, rgba(130,10,20,0.25) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 0;
+    pointer-events: none; z-index: 0;
   }
 
   .card {
@@ -58,29 +52,24 @@
     position: relative;
     z-index: 1;
     box-shadow: 0 40px 80px rgba(0,0,0,0.6);
-    margin: auto 0;
   }
 
+  /* ── Logo ── */
   .logo-wrap {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
   }
-
   .logo-icon {
-    width: 90px;
-    height: 90px;
+    width: 90px; height: 90px;
     background: #0d1f40;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1rem;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 0.8rem;
     border: 1.5px solid rgba(255,255,255,0.1);
     overflow: hidden;
   }
-
   .brand-name {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 2.2rem;
@@ -89,182 +78,163 @@
     line-height: 1;
   }
   .brand-tag {
-    font-size: 11px;
-    letter-spacing: 3px;
-    color: #5a7aaa;
-    text-transform: uppercase;
-    margin-top: 4px;
+    font-size: 11px; letter-spacing: 3px;
+    color: #5a7aaa; text-transform: uppercase; margin-top: 4px;
+  }
+  .badge-beta {
+    display: inline-block;
+    background: rgba(200,30,40,0.2); color: #f05a5a;
+    border: 1px solid rgba(200,30,40,0.3);
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    padding: 2px 8px; border-radius: 4px;
+    margin-left: 6px; vertical-align: middle;
   }
 
   .divider {
     height: 1px;
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-    margin: 1.5rem 0;
+    margin: 1.2rem 0;
   }
 
+  /* ── Headings ── */
   h1 {
-    font-size: 1.4rem;
-    font-weight: 600;
-    color: #ffffff;
-    text-align: center;
-    line-height: 1.4;
-    margin-bottom: 0.5rem;
+    font-size: 1.4rem; font-weight: 600;
+    color: #ffffff; text-align: center;
+    line-height: 1.4; margin-bottom: 0.4rem;
   }
-  h1.sub-heading {
-    font-size: 1rem;
-    color: #a0b0cc;
-    margin-bottom: 0.5rem;
-  }
+  h1.sub-heading { font-size: 1rem; color: #a0b0cc; }
   .subtitle {
-    font-size: 14px;
-    color: #6a82a0;
-    text-align: center;
-    margin-bottom: 2rem;
-    line-height: 1.6;
+    font-size: 14px; color: #6a82a0;
+    text-align: center; margin-bottom: 1.2rem; line-height: 1.5;
   }
 
-  .options {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-bottom: 2rem;
-  }
-
-  .opt-btn {
-    display: flex;
-    align-items: center;
-    gap: 1.2rem;
-    background: #111e33;
-    border: 1.5px solid rgba(255,255,255,0.08);
-    border-radius: 14px;
-    padding: 1.2rem 1.5rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    text-decoration: none;
-    color: inherit;
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-  }
-  .opt-btn::after {
-    content: '→';
-    position: absolute;
-    right: 1.5rem;
-    font-size: 18px;
-    color: #3a5580;
-    transition: all 0.2s ease;
-  }
-  .opt-btn:hover {
-    border-color: rgba(255,255,255,0.2);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
-  }
-  .opt-btn:hover::after { right: 1.2rem; color: #cdd6e8; }
-
-  .opt-btn.discord:hover { border-color: #5865F2; background: rgba(88,101,242,0.1); }
-  .opt-btn.discord:hover .opt-icon { background: rgba(88,101,242,0.2); }
-  .opt-btn.gmail:hover { border-color: #c0392b; background: rgba(192,57,43,0.1); }
-  .opt-btn.gmail:hover .opt-icon { background: rgba(192,57,43,0.2); }
-
-  .opt-icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 12px;
-    background: rgba(255,255,255,0.06);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    transition: background 0.2s;
-  }
-  .opt-icon svg { width: 26px; height: 26px; }
-
-  .opt-label { text-align: left; }
-  .opt-label strong {
-    display: block;
-    font-size: 16px;
-    font-weight: 600;
-    color: #e8eaf0;
-    margin-bottom: 2px;
-  }
-  .opt-label span { font-size: 13px; color: #5a7aaa; }
-
-  .email-field { margin-bottom: 1.2rem; }
+  /* ── Email field ── */
+  .email-field { margin-bottom: 1rem; }
   .email-field label {
-    display: block;
-    font-size: 12px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: #5a7aaa;
-    margin-bottom: 8px;
+    display: block; font-size: 12px;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: #5a7aaa; margin-bottom: 6px;
   }
   .email-field input {
     width: 100%;
     background: #111e33;
     border: 1.5px solid rgba(255,255,255,0.08);
     border-radius: 10px;
-    padding: 0.85rem 1.1rem;
-    font-size: 15px;
-    font-family: 'DM Sans', sans-serif;
-    color: #e8eaf0;
-    outline: none;
+    padding: 0.75rem 1rem;
+    font-size: 15px; font-family: 'DM Sans', sans-serif;
+    color: #e8eaf0; outline: none;
     transition: border-color 0.2s;
   }
   .email-field input::placeholder { color: #3a4f6a; }
   .email-field input:focus { border-color: rgba(255,255,255,0.25); }
   .email-field input.error { border-color: #c0392b; }
-  .error-msg { font-size: 12px; color: #f05a5a; margin-top: 6px; display: none; }
+  .error-msg { font-size: 12px; color: #f05a5a; margin-top: 5px; display: none; }
 
-  .footer-note {
-    font-size: 12px;
-    color: #3a4f6a;
-    text-align: center;
-    line-height: 1.6;
+  /* ── Option buttons ── */
+  .options { display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 1.2rem; }
+
+  .opt-btn {
+    display: flex; align-items: center; gap: 1.2rem;
+    background: #111e33;
+    border: 1.5px solid rgba(255,255,255,0.08);
+    border-radius: 14px; padding: 1rem 1.5rem;
+    cursor: pointer; transition: all 0.2s ease;
+    color: inherit; width: 100%;
+    position: relative; overflow: hidden;
   }
+  .opt-btn::after {
+    content: '→'; position: absolute; right: 1.5rem;
+    font-size: 18px; color: #3a5580; transition: all 0.2s ease;
+  }
+  .opt-btn:hover { border-color: rgba(255,255,255,0.2); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
+  .opt-btn:hover::after { right: 1.2rem; color: #cdd6e8; }
+  .opt-btn.discord:hover { border-color: #5865F2; background: rgba(88,101,242,0.1); }
+  .opt-btn.discord:hover .opt-icon { background: rgba(88,101,242,0.2); }
+  .opt-btn.gmail:hover { border-color: #c0392b; background: rgba(192,57,43,0.1); }
+  .opt-btn.gmail:hover .opt-icon { background: rgba(192,57,43,0.2); }
+
+  .opt-icon {
+    width: 50px; height: 50px; border-radius: 12px;
+    background: rgba(255,255,255,0.06);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: background 0.2s;
+  }
+  .opt-icon svg { width: 26px; height: 26px; }
+
+  .opt-label { text-align: left; }
+  .opt-label strong { display: block; font-size: 16px; font-weight: 600; color: #e8eaf0; margin-bottom: 2px; }
+  .opt-label span { font-size: 13px; color: #5a7aaa; }
+
+  .footer-note { font-size: 12px; color: #3a4f6a; text-align: center; line-height: 1.6; }
   .footer-note a { color: #4a6a9a; text-decoration: none; }
 
-  .badge-beta {
-    display: inline-block;
-    background: rgba(200,30,40,0.2);
-    color: #f05a5a;
-    border: 1px solid rgba(200,30,40,0.3);
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 2px 8px;
-    border-radius: 4px;
-    margin-left: 6px;
-    vertical-align: middle;
-  }
-
-  #success {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 1rem 0;
-  }
+  /* ── Success ── */
+  #success { display: none; flex-direction: column; align-items: center; text-align: center; padding: 1rem 0; }
   .success-icon {
-    width: 72px;
-    height: 72px;
-    background: rgba(20, 160, 100, 0.12);
-    border: 1.5px solid rgba(20, 160, 100, 0.3);
+    width: 72px; height: 72px;
+    background: rgba(20,160,100,0.12);
+    border: 1.5px solid rgba(20,160,100,0.3);
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     margin-bottom: 1.5rem;
   }
   .success-icon svg { width: 32px; height: 32px; }
   #success h2 { font-size: 1.4rem; color: #fff; margin-bottom: 0.5rem; }
   #success p { font-size: 14px; color: #6a82a0; line-height: 1.7; }
   #chosen-label { color: #7fccaa; font-weight: 600; }
+
+  /* ══════════════════════════════════════════════
+     COMPACT MODE — triggers when viewport is short
+     (phones, small laptops, or zoomed browsers)
+  ══════════════════════════════════════════════ */
+  @media (max-height: 780px) {
+    body { padding: 1rem; align-items: flex-start; }
+    .card { padding: 1.5rem 1.8rem; }
+    .logo-icon { width: 60px; height: 60px; margin-bottom: 0.5rem; }
+    .logo-icon svg { width: 48px; height: 48px; }
+    .brand-name { font-size: 1.6rem; }
+    .brand-tag { font-size: 10px; }
+    .logo-wrap { margin-bottom: 0.8rem; }
+    .divider { margin: 0.7rem 0; }
+    h1 { font-size: 1.1rem; margin-bottom: 0.2rem; }
+    h1.sub-heading { font-size: 0.85rem; }
+    .subtitle { font-size: 12px; margin-bottom: 0.8rem; line-height: 1.4; }
+    .email-field { margin-bottom: 0.7rem; }
+    .email-field label { font-size: 11px; margin-bottom: 4px; }
+    .email-field input { padding: 0.55rem 0.85rem; font-size: 13px; }
+    .options { gap: 0.6rem; margin-bottom: 0.8rem; }
+    .opt-btn { padding: 0.7rem 1.2rem; border-radius: 11px; }
+    .opt-icon { width: 38px; height: 38px; border-radius: 9px; }
+    .opt-icon svg { width: 20px; height: 20px; }
+    .opt-label strong { font-size: 14px; }
+    .opt-label span { font-size: 12px; }
+    .footer-note { font-size: 11px; }
+  }
+
+  @media (max-height: 600px) {
+    .logo-icon { width: 48px; height: 48px; }
+    .logo-icon svg { width: 38px; height: 38px; }
+    .brand-name { font-size: 1.3rem; }
+    .brand-tag, .badge-beta { display: none; }
+    .logo-wrap { flex-direction: row; gap: 0.8rem; margin-bottom: 0.6rem; }
+    .divider { margin: 0.5rem 0; }
+    h1 { font-size: 1rem; }
+    h1.sub-heading { display: none; }
+    .subtitle { display: none; }
+    .card { padding: 1.2rem 1.5rem; }
+  }
+
+  @media (max-width: 480px) {
+    body { padding: 0.8rem; }
+    .card { padding: 1.4rem 1.2rem; border-radius: 14px; }
+    h1 { font-size: 1.1rem; }
+    .brand-name { font-size: 1.5rem; }
+  }
 </style>
 </head>
 <body>
 
 <div class="card">
-
   <div class="logo-wrap">
     <div class="logo-icon">
       <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" width="70" height="70">
@@ -280,8 +250,10 @@
         <ellipse cx="40" cy="50" rx="4" ry="6" fill="#f5a020"/>
       </svg>
     </div>
-    <div class="brand-name">RocketScanner <span class="badge-beta">Beta</span></div>
-    <div class="brand-tag">Real-Time Stock Scanner Alert System</div>
+    <div>
+      <div class="brand-name">RocketScanner <span class="badge-beta">Beta</span></div>
+      <div class="brand-tag">Real-Time Stock Scanner Alert System</div>
+    </div>
   </div>
 
   <div class="divider"></div>
@@ -341,15 +313,14 @@
     <h2>You're all set! 🚀</h2>
     <p>You've selected <span id="chosen-label"></span> as your alert delivery method.<br/><br/>Confirmation will be sent to <strong id="customer-email-display" style="color:#7fccaa;"></strong>.<br/>The RocketScanner team will get you set up shortly. 🚀</p>
   </div>
-
 </div>
 
 <script>
 async function choose(platform) {
   const emailInput = document.getElementById('customer-email');
-  const errorMsg = document.getElementById('email-error');
-  const emailVal = emailInput.value.trim();
-  const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal);
+  const errorMsg   = document.getElementById('email-error');
+  const emailVal   = emailInput.value.trim();
+  const valid      = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal);
 
   if (!valid) {
     emailInput.classList.add('error');
@@ -360,9 +331,9 @@ async function choose(platform) {
   emailInput.classList.remove('error');
   errorMsg.style.display = 'none';
 
-  const mainView = document.getElementById('main-view');
+  const mainView    = document.getElementById('main-view');
   const successView = document.getElementById('success');
-  document.getElementById('chosen-label').textContent = platform;
+  document.getElementById('chosen-label').textContent         = platform;
   document.getElementById('customer-email-display').textContent = emailVal;
 
   document.querySelectorAll('.opt-btn').forEach(b => b.disabled = true);
@@ -380,22 +351,20 @@ async function choose(platform) {
         _captcha: 'false'
       })
     });
-  } catch(e) {
-    console.error('Notification error:', e);
-  }
+  } catch(e) { console.error('Notification error:', e); }
 
-  mainView.style.opacity = '0';
-  mainView.style.transform = 'scale(0.97)';
+  mainView.style.opacity    = '0';
+  mainView.style.transform  = 'scale(0.97)';
   mainView.style.transition = 'opacity 0.3s, transform 0.3s';
 
   setTimeout(() => {
-    mainView.style.display = 'none';
+    mainView.style.display    = 'none';
     successView.style.display = 'flex';
     successView.style.opacity = '0';
-    successView.style.transform = 'scale(0.97)';
+    successView.style.transform  = 'scale(0.97)';
     successView.style.transition = 'opacity 0.3s, transform 0.3s';
     requestAnimationFrame(() => {
-      successView.style.opacity = '1';
+      successView.style.opacity   = '1';
       successView.style.transform = 'scale(1)';
     });
   }, 300);
