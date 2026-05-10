@@ -16,9 +16,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2rem 1rem;
+    padding: 1rem;                /* ↓ was 2rem 1rem */
     position: relative;
-    overflow: hidden;
+    overflow-y: auto;             /* ← added: scroll on small screens */
   }
 
   body::before {
@@ -48,7 +48,7 @@
     border-radius: 20px;
     max-width: 560px;
     width: 100%;
-    padding: 3rem 2.5rem;
+    padding: 1.8rem 2.5rem;       /* ↓ was 3rem 2.5rem */
     position: relative;
     z-index: 1;
     box-shadow: 0 40px 80px rgba(0,0,0,0.6);
@@ -58,30 +58,30 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;          /* ↓ was 2rem */
   }
 
   .logo-icon {
-    width: 90px;
-    height: 90px;
+    width: 64px;                  /* ↓ was 90px */
+    height: 64px;                 /* ↓ was 90px */
     background: #0d1f40;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 1rem;
+    margin-bottom: 0.6rem;        /* ↓ was 1rem */
     border: 1.5px solid rgba(255,255,255,0.1);
     overflow: hidden;
   }
   .logo-icon img {
-    width: 75px;
-    height: 75px;
+    width: 52px;                  /* ↓ was 75px */
+    height: 52px;
     object-fit: contain;
   }
 
   .brand-name {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 2.2rem;
+    font-size: 1.8rem;            /* ↓ was 2.2rem */
     letter-spacing: 2px;
     color: #ffffff;
     line-height: 1;
@@ -97,7 +97,7 @@
   .divider {
     height: 1px;
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-    margin: 1.5rem 0;
+    margin: 1rem 0;               /* ↓ was 1.5rem */
   }
 
   h1 {
@@ -106,21 +106,21 @@
     color: #ffffff;
     text-align: center;
     line-height: 1.4;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.4rem;       /* ↓ was 0.5rem */
   }
   .subtitle {
     font-size: 14px;
     color: #6a82a0;
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1.2rem;       /* ↓ was 2rem */
     line-height: 1.6;
   }
 
   .options {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    margin-bottom: 2rem;
+    gap: 0.75rem;                /* ↓ was 1rem */
+    margin-bottom: 1.2rem;      /* ↓ was 2rem */
   }
 
   .opt-btn {
@@ -130,7 +130,7 @@
     background: #111e33;
     border: 1.5px solid rgba(255,255,255,0.08);
     border-radius: 14px;
-    padding: 1.2rem 1.5rem;
+    padding: 1rem 1.5rem;       /* ↓ was 1.2rem */
     cursor: pointer;
     transition: all 0.2s ease;
     text-decoration: none;
@@ -193,7 +193,7 @@
   }
 
   .email-field {
-    margin-bottom: 1.2rem;
+    margin-bottom: 1rem;         /* ↓ was 1.2rem */
   }
   .email-field label {
     display: block;
@@ -273,21 +273,14 @@
 
   <div class="logo-wrap">
     <div class="logo-icon">
-      <!-- Inline SVG approximation of the RocketScanner logo concept -->
-      <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" width="70" height="70">
-        <!-- Bull body -->
+      <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" width="52" height="52">
         <ellipse cx="38" cy="48" rx="26" ry="18" fill="#1a3060"/>
-        <!-- Bull head -->
         <ellipse cx="62" cy="42" rx="12" ry="10" fill="#1a3060"/>
-        <!-- Horns -->
         <path d="M54 34 Q50 22 44 28" stroke="#1a3060" stroke-width="5" stroke-linecap="round" fill="none"/>
         <path d="M68 33 Q74 22 70 28" stroke="#1a3060" stroke-width="5" stroke-linecap="round" fill="none"/>
-        <!-- Rocket body -->
         <rect x="33" y="14" width="14" height="30" rx="7" fill="#a01020"/>
         <polygon points="33,24 47,24 40,10" fill="#c0182a"/>
-        <!-- Rocket window -->
         <circle cx="40" cy="30" r="4" fill="#e8eaf0"/>
-        <!-- Flame -->
         <ellipse cx="37" cy="46" rx="3" ry="5" fill="#e8600a"/>
         <ellipse cx="43" cy="46" rx="3" ry="5" fill="#e8600a"/>
         <ellipse cx="40" cy="50" rx="4" ry="6" fill="#f5a020"/>
@@ -299,7 +292,6 @@
 
   <div class="divider"></div>
 
-  <!-- Main choice view -->
   <div id="main-view">
     <h1>Choose your alert delivery ( can take few hours to process )</h1>
     <p class="subtitle">Select how you'd like to receive your real-time stock scanner alerts. You can update this anytime.</p>
@@ -312,7 +304,6 @@
 
     <div class="options">
 
-      <!-- Discord Button -->
       <button class="opt-btn discord" onclick="choose('Discord')">
         <div class="opt-icon">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -327,7 +318,6 @@
         </div>
       </button>
 
-      <!-- Email Button -->
       <button class="opt-btn gmail" onclick="choose('Email')">
         <div class="opt-icon">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -346,7 +336,6 @@
     <p class="footer-note">Your choice will be sent securely to the RocketScanner team.<br/>Need help? Contact us at <a href="mailto:postme.205@gmail.com">postme.205@gmail.com</a></p>
   </div>
 
-  <!-- Success view -->
   <div id="success">
     <div class="success-icon">
       <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
