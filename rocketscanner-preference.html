@@ -8,17 +8,21 @@
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+  html, body {
+    min-height: 100%;
+    overflow-y: auto;
+  }
+
   body {
     font-family: 'DM Sans', sans-serif;
     background: #080f1e;
     color: #e8eaf0;
     min-height: 100vh;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     padding: 2rem 1rem;
     position: relative;
-    overflow: hidden;
   }
 
   body::before {
@@ -30,6 +34,7 @@
     height: 70%;
     background: radial-gradient(ellipse, rgba(10,30,80,0.7) 0%, transparent 70%);
     pointer-events: none;
+    z-index: 0;
   }
   body::after {
     content: '';
@@ -40,6 +45,7 @@
     height: 60%;
     background: radial-gradient(ellipse, rgba(130,10,20,0.25) 0%, transparent 70%);
     pointer-events: none;
+    z-index: 0;
   }
 
   .card {
@@ -52,6 +58,7 @@
     position: relative;
     z-index: 1;
     box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+    margin: auto 0;
   }
 
   .logo-wrap {
@@ -72,11 +79,6 @@
     margin-bottom: 1rem;
     border: 1.5px solid rgba(255,255,255,0.1);
     overflow: hidden;
-  }
-  .logo-icon img {
-    width: 75px;
-    height: 75px;
-    object-fit: contain;
   }
 
   .brand-name {
@@ -106,6 +108,11 @@
     color: #ffffff;
     text-align: center;
     line-height: 1.4;
+    margin-bottom: 0.5rem;
+  }
+  h1.sub-heading {
+    font-size: 1rem;
+    color: #a0b0cc;
     margin-bottom: 0.5rem;
   }
   .subtitle {
@@ -147,20 +154,15 @@
     color: #3a5580;
     transition: all 0.2s ease;
   }
-
   .opt-btn:hover {
     border-color: rgba(255,255,255,0.2);
     transform: translateY(-2px);
     box-shadow: 0 8px 30px rgba(0,0,0,0.4);
   }
-  .opt-btn:hover::after {
-    right: 1.2rem;
-    color: #cdd6e8;
-  }
+  .opt-btn:hover::after { right: 1.2rem; color: #cdd6e8; }
 
   .opt-btn.discord:hover { border-color: #5865F2; background: rgba(88,101,242,0.1); }
   .opt-btn.discord:hover .opt-icon { background: rgba(88,101,242,0.2); }
-
   .opt-btn.gmail:hover { border-color: #c0392b; background: rgba(192,57,43,0.1); }
   .opt-btn.gmail:hover .opt-icon { background: rgba(192,57,43,0.2); }
 
@@ -177,9 +179,7 @@
   }
   .opt-icon svg { width: 26px; height: 26px; }
 
-  .opt-label {
-    text-align: left;
-  }
+  .opt-label { text-align: left; }
   .opt-label strong {
     display: block;
     font-size: 16px;
@@ -187,14 +187,9 @@
     color: #e8eaf0;
     margin-bottom: 2px;
   }
-  .opt-label span {
-    font-size: 13px;
-    color: #5a7aaa;
-  }
+  .opt-label span { font-size: 13px; color: #5a7aaa; }
 
-  .email-field {
-    margin-bottom: 1.2rem;
-  }
+  .email-field { margin-bottom: 1.2rem; }
   .email-field label {
     display: block;
     font-size: 12px;
@@ -242,7 +237,6 @@
     vertical-align: middle;
   }
 
-  /* Success screen */
   #success {
     display: none;
     flex-direction: column;
@@ -273,21 +267,14 @@
 
   <div class="logo-wrap">
     <div class="logo-icon">
-      <!-- Inline SVG approximation of the RocketScanner logo concept -->
       <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" width="70" height="70">
-        <!-- Bull body -->
         <ellipse cx="38" cy="48" rx="26" ry="18" fill="#1a3060"/>
-        <!-- Bull head -->
         <ellipse cx="62" cy="42" rx="12" ry="10" fill="#1a3060"/>
-        <!-- Horns -->
         <path d="M54 34 Q50 22 44 28" stroke="#1a3060" stroke-width="5" stroke-linecap="round" fill="none"/>
         <path d="M68 33 Q74 22 70 28" stroke="#1a3060" stroke-width="5" stroke-linecap="round" fill="none"/>
-        <!-- Rocket body -->
         <rect x="33" y="14" width="14" height="30" rx="7" fill="#a01020"/>
         <polygon points="33,24 47,24 40,10" fill="#c0182a"/>
-        <!-- Rocket window -->
         <circle cx="40" cy="30" r="4" fill="#e8eaf0"/>
-        <!-- Flame -->
         <ellipse cx="37" cy="46" rx="3" ry="5" fill="#e8600a"/>
         <ellipse cx="43" cy="46" rx="3" ry="5" fill="#e8600a"/>
         <ellipse cx="40" cy="50" rx="4" ry="6" fill="#f5a020"/>
@@ -299,10 +286,9 @@
 
   <div class="divider"></div>
 
-  <!-- Main choice view -->
   <div id="main-view">
     <h1>Choose your Alert Delivery Method</h1>
-   <h1> ( can take few hours to process )</h1>
+    <h1 class="sub-heading">( can take a few hours to process )</h1>
     <p class="subtitle">Select how you'd like to receive your real-time stock scanner alerts. You can update this anytime.</p>
 
     <div class="email-field">
@@ -313,7 +299,6 @@
 
     <div class="options">
 
-      <!-- Discord Button -->
       <button class="opt-btn discord" onclick="choose('Discord')">
         <div class="opt-icon">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -328,7 +313,6 @@
         </div>
       </button>
 
-      <!-- Email Button -->
       <button class="opt-btn gmail" onclick="choose('Email')">
         <div class="opt-icon">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -347,7 +331,6 @@
     <p class="footer-note">Your choice will be sent securely to the RocketScanner team.<br/>Need help? Contact us at <a href="mailto:postme.205@gmail.com">postme.205@gmail.com</a></p>
   </div>
 
-  <!-- Success view -->
   <div id="success">
     <div class="success-icon">
       <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
