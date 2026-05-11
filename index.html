@@ -571,22 +571,66 @@
 <!-- PayPal SDK -->
 <script src="https://www.paypal.com/sdk/js?client-id=AXfRs4sMS7FIrBEX8CYHW2ETK0edouwRc1zYR4B4GsfTf-5R3hsd2Nz1eqMeFXD3aL8WOD6i2-d_yIkk&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
 <script>
-  paypal.Buttons({
-    style: {
-      shape: 'rect',
-      color: 'gold',
-      layout: 'vertical',
-      label: 'subscribe'
-    },
-    createSubscription: function(data, actions) {
-      return actions.subscription.create({
-        plan_id: 'P-92468393G56295924NHY734Y'
-      });
-    },
-    onApprove: function(data, actions) {
-      alert('🎉 Subscription confirmed! ID: ' + data.subscriptionID);
+  // Grab subscriptionID from URL if present (e.g. ?sub=I-XXXXXXXXXX)
+  const urlParams = new URLSearchParams(window.location.search);
+  const subscriptionID = urlParams.get('sub') || 'Not provided (direct visit)';
+
+  async function choose(platform) {
+    const emailInput = document.getElementById('customer-email');
+    const errorMsg = document.getElementById('email-error');
+    const emailVal = emailInput.value.trim();
+    const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal);
+
+    if (!valid) {
+      emailInput.classList.add('error');
+      errorMsg.style.display = 'block';
+      emailInput.focus();
+      return;
     }
-  }).render('#paypal-button-container-P-92468393G56295924NHY734Y');
+    emailInput.classList.remove('error');
+    errorMsg.style.display = 'none';
+
+    const mainView = document.getElementById('main-view');
+    const successView = document.getElementById('success');
+    document.getElementById('chosen-label').textContent = platform;
+    document.getElementById('customer-email-display').textContent = emailVal;
+
+    document.querySelectorAll('.opt-btn').forEach(b => b.disabled = true);
+
+    try {
+      await fetch('https://formsubmit.co/ajax/postme.205@gmail.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          _subject: '🚀 RocketScanner — Customer Selected: ' + platform,
+          _template: 'box',
+          'Customer Email': emailVal,
+          'Delivery Method': platform,
+          'PayPal Subscription ID': subscriptionID,   // ← new
+          'Submitted At': new Date().toLocaleString('en-GB', { dateStyle: 'long', timeStyle: 'short' }),
+          _captcha: 'false'
+        })
+      });
+    } catch(e) {
+      console.error('Notification error:', e);
+    }
+
+    mainView.style.opacity = '0';
+    mainView.style.transform = 'scale(0.97)';
+    mainView.style.transition = 'opacity 0.3s, transform 0.3s';
+
+    setTimeout(() => {
+      mainView.style.display = 'none';
+      successView.style.display = 'flex';
+      successView.style.opacity = '0';
+      successView.style.transform = 'scale(0.97)';
+      successView.style.transition = 'opacity 0.3s, transform 0.3s';
+      requestAnimationFrame(() => {
+        successView.style.opacity = '1';
+        successView.style.transform = 'scale(1)';
+      });
+    }, 300);
+  }
 </script>
 
 </body>
